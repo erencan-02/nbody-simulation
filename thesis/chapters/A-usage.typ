@@ -6,7 +6,7 @@
 
 ```bash
 pip install -e ".[viewer,experiments,dev]"   # from the repository root
-python -m pytest                               # run the 100 tests
+python -m pytest                               # run the 103 tests
 ```
 
 The package requires Python $>=$ 3.10, NumPy and Matplotlib. pygame is needed only for the viewer, SciPy only for the experiments and tests.

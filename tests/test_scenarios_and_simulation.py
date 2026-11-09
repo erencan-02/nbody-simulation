@@ -20,7 +20,8 @@ def test_builtin_scenarios_are_valid(name):
     sim.step(sc.recommended["dt"])
 
 
-@pytest.mark.parametrize("name", ["solar_system", "circumbinary", "random_cluster", "kepler"])
+@pytest.mark.parametrize("name", ["solar_system", "circumbinary", "random_cluster", "kepler",
+                                  "sun_earth_moon"])
 def test_scenarios_are_in_the_barycentric_frame(name):
     sc = load_scenario(name)
     np.testing.assert_allclose(diag.linear_momentum(sc.velocities, sc.masses), 0, atol=1e-14)
@@ -106,3 +107,14 @@ def test_trajectory_energy_uses_the_generating_model():
     E = traj.energy()
     assert E[0] == pytest.approx(0.5 * 2.0 * 9.0)  # (1/2) m omega^2 x^2
     assert np.max(np.abs(E - E[0])) / E[0] < 1e-3
+
+
+def test_sun_earth_moon_moon_stays_bound(tmp_path):
+    sc = load_scenario("sun_earth_moon")
+    sc.save_json(tmp_path / "sem.json")  # recommended values must be JSON-serialisable
+    traj = simulate(sc.model(), sc.initial_state(), "yoshida4", 4 * np.pi, sc.recommended["dt"],
+                    record_every=10)
+    d = np.linalg.norm(traj.x[:, 2] - traj.x[:, 1], axis=-1)
+    assert d.max() < 1.2 * 0.08 and d.min() > 0.8 * 0.08
+    with pytest.raises(ValueError):
+        load_scenario("sun_earth_moon", a_moon=0.2)  # beyond half the Hill radius

@@ -17,7 +17,7 @@ implementation, evaluation, outlook)
 | | |
 |---|---|
 | **Integrators** | explicit Euler · symplectic Euler · Heun · leapfrog/Verlet · RK4 · Yoshida 4 · Yoshida 6 (triple jump and 7-stage "solution A") · adaptive Dormand–Prince 5(4) |
-| **Theory → tests** | every claimed property (order, symplecticity, time-reversibility, cost) is checked by an automated test (100 tests) |
+| **Theory → tests** | every claimed property (order, symplecticity, time-reversibility, cost) is checked by an automated test (103 tests) |
 | **Measured orders** | agree with theory to within 0.3 for all eight fixed-step methods |
 | **Long-term behaviour** | symplectic methods: bounded energy error, global error ∝ t; RK4/DOPRI5: energy drift, error ∝ t² (measured exponents 1.00 vs. 1.94–1.98) |
 | **Solar System** | 1000 years, one force evaluation per day: relative energy error < 3·10⁻⁶ (leapfrog / Yoshida 4) |
@@ -27,7 +27,7 @@ implementation, evaluation, outlook)
 
 <p align="center">
   <img src="docs/showcase.gif" width="48%" alt="Animated inner Solar System with trails and forecast overlay">
-  <img src="thesis/figures/generated/viewer_circumbinary.png" width="48%">
+  <img src="docs/sun_earth_moon.gif" width="48%" alt="Animated star, planet and moon with a magnified view around the planet">
 </p>
 
 ## Repository layout
@@ -44,8 +44,8 @@ implementation, evaluation, outlook)
 ├── scenarios/              user-editable JSON scenarios (incl. those of the original project)
 ├── experiments/            evaluation experiments e01–e09 and run_all.py
 ├── tests/                  pytest suite
-├── scripts/                fetch_fonts.py (thesis fonts), make_readme_gif.py (animation below)
-├── docs/showcase.gif       README animation (leapfrog, 4 simulated days per frame)
+├── scripts/                fetch_fonts.py (thesis fonts), make_readme_gif.py (README animations)
+├── docs/                  README animations (scripts/make_readme_gif.py)
 └── thesis/                 Typst sources of the thesis
     ├── main.typ            template configuration (dark-blue TU Darmstadt theme)
     ├── chapters/           introduction, physics, numerics, implementation, evaluation, ...
@@ -59,10 +59,11 @@ implementation, evaluation, outlook)
 
 ```bash
 pip install -e ".[viewer,experiments,dev]"
-python -m pytest                      # 100 tests, ~30 s
+python -m pytest                      # 103 tests, ~30 s
 
 python -m nbody list                  # scenarios and integrators
 python -m nbody view solar_system     # interactive viewer (H shows the key bindings)
+python -m nbody view sun_earth_moon   # star, planet and moon
 python -m nbody compare kepler -i euler leapfrog rk4 yoshida4 --t-end 200
 python -m nbody simulate pythagorean --rtol 1e-11 --plot
 ```

@@ -208,6 +208,46 @@ def circumbinary(q: float = 0.5, r_planet: float = 3.5) -> Scenario:
     return sc.barycentric()
 
 
+@builtin("sun_earth_moon")
+def sun_earth_moon(
+    planet_mass: float = 0.03,
+    moon_mass: float = 3e-4,
+    a_planet: float = 1.0,
+    a_moon: float = 0.08,
+) -> Scenario:
+    """Star, planet and moon (hierarchical triple, moon orbit enlarged for visibility)."""
+    M, mp, mm = 1.0, float(planet_mass), float(moon_mass)
+    hill = a_planet * (mp / (3.0 * M)) ** (1.0 / 3.0)
+    if a_moon > 0.5 * hill:
+        raise ValueError(f"a_moon={a_moon} exceeds half the Hill radius ({hill:.3f}): unstable")
+    m_pair = mp + mm
+    # planet-moon barycentre on a circular orbit around the star
+    v_pair = np.sqrt((M + m_pair) / a_planet)
+    # moon on a circular orbit around the planet (prograde)
+    u = np.sqrt(m_pair / a_moon)
+    positions = [[0.0, 0.0],
+                 [a_planet - mm / m_pair * a_moon, 0.0],
+                 [a_planet + mp / m_pair * a_moon, 0.0]]
+    velocities = [[0.0, 0.0],
+                  [0.0, v_pair - mm / m_pair * u],
+                  [0.0, v_pair + mp / m_pair * u]]
+    P_moon = 2 * np.pi * np.sqrt(a_moon**3 / m_pair)
+    sc = Scenario(
+        name="sun_earth_moon",
+        masses=[M, mp, mm],
+        positions=positions,
+        velocities=velocities,
+        G=1.0,
+        names=["Sun", "Earth", "Moon"],
+        colors=[_PLANET_COLORS["Sun"], _PLANET_COLORS["Earth"], "#DCDCDC"],
+        description="Stylised Sun-Earth-Moon system (G = M_sun = 1 AU-like units); "
+        f"moon orbit enlarged to {a_moon / hill:.2f} Hill radii so that it is visible.",
+        recommended={"integrator": "yoshida4", "dt": float(P_moon / 200),
+                     "t_end": float(20 * 2 * np.pi)},
+    )
+    return sc.barycentric()
+
+
 @builtin("random_cluster")
 def random_cluster(
     n: int = 50, seed: int = 1, softening: float = 0.05, virial_ratio: float = 0.5, dim: int = 2

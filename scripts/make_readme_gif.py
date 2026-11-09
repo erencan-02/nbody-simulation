@@ -1,10 +1,11 @@
-"""Render the animated README showcase (headless) with the real-time viewer.
+"""Render the animated README showcases (headless) with the real-time viewer.
 
-    python scripts/make_readme_gif.py [output.gif]
+    python scripts/make_readme_gif.py                 # all showcases
+    python scripts/make_readme_gif.py sun_earth_moon  # a single one
 
-The inner Solar System is integrated with leapfrog (h = 1 day); every frame
-advances the simulation by `DAYS_PER_FRAME` days, so Mercury completes an
-orbit in about one second of animation and the Earth in about four.
+Each showcase advances the simulation by a fixed amount of simulated time per
+frame, chosen so that the motion is clearly visible: e.g. Mercury completes an
+orbit in about one second of animation, the stylised Moon in about 0.8 s.
 Trails (past) and the dotted forecast overlay (future) are switched on.
 """
 
@@ -28,33 +29,76 @@ from nbody.viz.viewer import Viewer  # noqa: E402
 
 SIZE = (720, 540)
 FPS = 25
-SECONDS = 9
-DAYS_PER_FRAME = 4
-WARMUP_FRAMES = 30  # let trails build up before recording
+
+SHOWCASES = {
+    # inner Solar System, leapfrog with h = 1 day, 4 days per frame
+    "showcase": dict(scenario="inner_solar_system", integrator="leapfrog", dt=1 / 365.25,
+                     steps_per_frame=4, trail=70, horizon=0.8, zoom=2.3, seconds=9, warmup=30),
+    # star - planet - moon, Yoshida 4, ~6 s per planetary orbit, ~0.8 s per lunar orbit
+    "sun_earth_moon": dict(scenario="sun_earth_moon", integrator="yoshida4", dt=None,
+                           steps_per_frame=10, trail=110, horizon=1.2, zoom=1.0, seconds=10,
+                           warmup=60, inset=dict(body=1, zoom=4.0, size=(250, 190), trail=22,
+                                                 label="around the Earth, x4")),
+}
 
 
-def main(out: Path) -> None:
-    viewer = Viewer(
-        load_scenario("inner_solar_system"),
-        integrator="leapfrog",
-        dt=1 / 365.25,
-        steps_per_frame=DAYS_PER_FRAME,
-        size=SIZE,
-        trail_length=70,
-        prediction_horizon=0.8,
-    )
-    viewer.camera.scale *= 2.3
+def draw_inset(viewer: Viewer, screen, font, cfg: dict) -> None:
+    """Magnified view centred on one body, pasted into the lower right corner."""
+    cam = viewer.camera
+    saved = (cam.center.copy(), cam.scale, viewer.follow_com, viewer.show_trails,
+             viewer.show_prediction)
+    viewer.follow_com = viewer.show_trails = viewer.show_prediction = False
+    centre = viewer.sim.state.x[cfg["body"], :2].copy()
+    cam.center = centre
+    cam.scale = saved[1] * cfg["zoom"]
+    full = pygame.Surface(SIZE)
+    viewer.render(full, pygame, font)
+    # trails of the other bodies relative to the centred body (the Moon's orbit
+    # around the Earth instead of its inertial epicycles)
+    pts = viewer.trails.ordered()[-cfg.get("trail", 10**9):]
+    if len(pts) >= 2:
+        for i in range(pts.shape[1]):
+            if i == cfg["body"]:
+                continue
+            rel = pts[:, i, :2] - pts[:, cfg["body"], :2] + centre
+            scr = cam.to_screen(rel)
+            n = len(scr)
+            for c in range(6):
+                a, b = c * n // 6, min(n, (c + 1) * n // 6 + 1)
+                if b - a >= 2:
+                    f = 0.15 + 0.75 * (c + 1) / 6
+                    col = tuple(int(bg + (cc - bg) * f) for bg, cc in zip((11, 16, 38), viewer.colors[i]))
+                    pygame.draw.aalines(full, col, False, scr[a:b].tolist())
+        for i in range(pts.shape[1]):  # redraw bodies on top of the trails
+            p = cam.to_screen(viewer.sim.state.x[i, :2])
+            pygame.draw.circle(full, viewer.colors[i], (int(p[0]), int(p[1])), int(viewer.radii[i]))
+    cam.center, cam.scale, viewer.follow_com, viewer.show_trails, viewer.show_prediction = saved
+    w, h = cfg["size"]
+    crop = full.subsurface(pygame.Rect(SIZE[0] // 2 - w // 2, SIZE[1] // 2 - h // 2, w, h))
+    x0, y0 = SIZE[0] - w - 12, SIZE[1] - h - 12
+    screen.blit(crop, (x0, y0))
+    pygame.draw.rect(screen, (93, 133, 195), pygame.Rect(x0 - 1, y0 - 1, w + 2, h + 2), 1)
+    screen.blit(font.render(cfg["label"], True, (180, 190, 215)), (x0 + 6, y0 + 4))
+
+
+def render(name: str, cfg: dict, out: Path) -> None:
+    sc = load_scenario(cfg["scenario"])
+    viewer = Viewer(sc, integrator=cfg["integrator"], dt=cfg["dt"],
+                    steps_per_frame=cfg["steps_per_frame"], size=SIZE,
+                    trail_length=cfg["trail"], prediction_horizon=cfg["horizon"])
+    viewer.camera.scale *= cfg["zoom"]
     pygame.init()
     screen = pygame.display.set_mode(SIZE)
     font = pygame.font.SysFont("consolas,dejavusansmono,monospace", 13)
     frames = []
-    for k in range(WARMUP_FRAMES + FPS * SECONDS):
+    for k in range(cfg["warmup"] + FPS * cfg["seconds"]):
         viewer.advance()
         viewer.render(screen, pygame, font)
+        if "inset" in cfg:
+            draw_inset(viewer, screen, font, cfg["inset"])
         viewer.frame += 1
-        if k >= WARMUP_FRAMES:
-            raw = pygame.image.tobytes(screen, "RGB")
-            frames.append(Image.frombytes("RGB", SIZE, raw))
+        if k >= cfg["warmup"]:
+            frames.append(Image.frombytes("RGB", SIZE, pygame.image.tobytes(screen, "RGB")))
     pygame.quit()
 
     # one shared palette (the scene uses few colours) keeps the GIF small and flicker-free
@@ -65,5 +109,12 @@ def main(out: Path) -> None:
     print(f"wrote {out} ({len(gif)} frames, {out.stat().st_size / 1e6:.1f} MB)")
 
 
+def main(names: list[str]) -> None:
+    out_dir = ROOT / "docs"
+    out_dir.mkdir(exist_ok=True)
+    for name in names or list(SHOWCASES):
+        render(name, SHOWCASES[name], out_dir / f"{name}.gif")
+
+
 if __name__ == "__main__":
-    main(Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "docs" / "showcase.gif")
+    main(sys.argv[1:])
