@@ -1,0 +1,6 @@
+rtol,force_evals,binary,binary_separation,final_error_vs_reference,outcome_correct
+1e-08,32467,m=3 + m=5,0.631106,24.9196,no
+1e-09,48055,m=4 + m=5,1.78558,24.2525,yes
+1e-10,87331,m=3 + m=5,0.32747,28.1478,no
+1e-11,199351,m=4 + m=5,0.385374,7.84401,yes
+1e-12,248257,m=4 + m=5,0.293258,6.02353,yes

@@ -1,0 +1,11 @@
+{
+  "name": "two_body_legacy",
+  "description": "Two-body scenario of the original course project (artificial units, strong softening).",
+  "G": 20.0,
+  "softening": 5.0,
+  "recommended": {"integrator": "leapfrog", "dt": 0.1, "t_end": 500.0},
+  "bodies": [
+    {"name": "primary", "mass": 1000, "position": [0, 0], "velocity": [0, 0], "color": "#FDCA00"},
+    {"name": "satellite", "mass": 10, "position": [50, 0], "velocity": [0, -25], "color": "#0083CC"}
+  ]
+}

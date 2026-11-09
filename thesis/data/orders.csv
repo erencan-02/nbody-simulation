@@ -1,0 +1,9 @@
+integrator,label,order_theory,order_measured,fit_points,evals_per_step,symplectic,time_reversible
+euler,Explicit Euler,1,0.94,3,1,no,no
+symplectic_euler,Symplectic Euler,1,1,6,1,yes,no
+heun,Heun (RK2),2,2.01,3,2,no,no
+leapfrog,Leapfrog (Verlet),2,2,4,1,yes,yes
+rk4,Runge-Kutta 4,4,4.19,5,4,no,no
+yoshida4,Yoshida 4,4,4,5,3,yes,yes
+yoshida6a,Yoshida 6 (solution A),6,5.97,5,7,yes,yes
+yoshida6,Yoshida 6 (triple jump),6,6.04,5,9,yes,yes

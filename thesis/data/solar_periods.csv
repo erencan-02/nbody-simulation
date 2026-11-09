@@ -1,0 +1,9 @@
+planet,a_AU,P_kepler_yr,P_simulated_yr,rel_deviation,source
+Mercury,0.387099,0.240843,0.240843,1.21209e-06,"Yoshida 6A, 1 d, 100 yr"
+Venus,0.723336,0.61519,0.615193,4.84056e-06,"Yoshida 6A, 1 d, 100 yr"
+Earth,1,1,1.00001,5.97549e-06,"Yoshida 6A, 1 d, 100 yr"
+Mars,1.52371,1.88085,1.88094,5.02232e-05,"Yoshida 6A, 1 d, 100 yr"
+Jupiter,5.20289,11.862,11.8651,0.000261359,"leapfrog, 1 d, 1000 yr"
+Saturn,9.53668,29.4465,29.3169,-0.00439935,"leapfrog, 1 d, 1000 yr"
+Uranus,19.1892,84.0571,84.2996,0.00288407,"leapfrog, 1 d, 1000 yr"
+Neptune,30.0699,164.887,163.185,-0.010325,"leapfrog, 1 d, 1000 yr"

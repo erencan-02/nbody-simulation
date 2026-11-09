@@ -1,0 +1,6 @@
+integrator,label,max_rel_energy_error,final_rel_energy_error
+euler,Explicit Euler,1.4679e+85,1.4679e+85
+symplectic_euler,Symplectic Euler,0.111059,0.0884353
+leapfrog,Leapfrog (Verlet),0.00999741,0.0022469
+rk4,Runge-Kutta 4,0.00441246,0.00441246
+yoshida4,Yoshida 4,0.000125372,7.28707e-05

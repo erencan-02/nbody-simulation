@@ -1,0 +1,162 @@
+{
+  "e01": {
+    "stability_limits": {
+      "euler": 0.001,
+      "symplectic_euler": 2.0020425354462055,
+      "leapfrog": 2.0020425354462055,
+      "rk4": 2.8291401167639703,
+      "yoshida4": 1.5751534612176816
+    }
+  },
+  "e02": {
+    "orders": {
+      "euler": 0.9364529900347002,
+      "symplectic_euler": 0.9968348920869806,
+      "heun": 2.0095051942851243,
+      "leapfrog": 2.0000407609938122,
+      "rk4": 4.193533228176219,
+      "yoshida4": 3.995424870284444,
+      "yoshida6a": 5.972095042606557,
+      "yoshida6": 6.043320923521846
+    },
+    "cost_target": 1e-06,
+    "cost": {
+      "euler": null,
+      "symplectic_euler": null,
+      "heun": null,
+      "leapfrog": null,
+      "rk4": 8874.996299163999,
+      "yoshida4": 12758.089119071366,
+      "yoshida6a": 5043.018557785587,
+      "yoshida6": 10369.542630256132,
+      "dopri5": 1714.8842249495074
+    }
+  },
+  "e03": {
+    "euler": {
+      "energy_max": 0.9490970294702957,
+      "error_final": 36.87617987811512,
+      "error_growth": null,
+      "reversibility": 8.392348826802337,
+      "angular_momentum_max": 0.5361708984940634
+    },
+    "symplectic_euler": {
+      "energy_max": 0.009003514135278253,
+      "error_final": 1.6552484549066457,
+      "error_growth": 0.999565411154447,
+      "reversibility": 1.7606239616773651,
+      "angular_momentum_max": 1.7535764963978783e-14
+    },
+    "heun": {
+      "energy_max": 0.023774460542951317,
+      "error_final": 2.5274192716822044,
+      "error_growth": null,
+      "reversibility": 0.5814266404213843,
+      "angular_momentum_max": 0.003840066848335429
+    },
+    "leapfrog": {
+      "energy_max": 0.00010560343586488875,
+      "error_final": 0.8437322218089028,
+      "error_growth": 0.9994569209750193,
+      "reversibility": 9.512692608425382e-14,
+      "angular_momentum_max": 3.131386600710497e-14
+    },
+    "rk4": {
+      "energy_max": 5.867455232485077e-05,
+      "error_final": 0.24228795226411956,
+      "error_growth": 1.9389631831124847,
+      "reversibility": 0.0003776448327021572,
+      "angular_momentum_max": 9.04040185223214e-06
+    },
+    "yoshida4": {
+      "energy_max": 2.5472753420463554e-06,
+      "error_final": 0.022969261717449046,
+      "error_growth": 1.0001232752371676,
+      "reversibility": 3.7864976278563e-13,
+      "angular_momentum_max": 2.5552114661797656e-14
+    },
+    "yoshida6a": {
+      "energy_max": 1.7106679657888398e-07,
+      "error_final": 0.0014881520919406896,
+      "error_growth": 1.0005215555713871,
+      "reversibility": 7.151440841999074e-13,
+      "angular_momentum_max": 5.548817056459001e-14
+    },
+    "dopri5": {
+      "energy_max": 3.63986271678663e-08,
+      "error_final": 0.00015048438601710575,
+      "error_growth": 1.9755144979071753,
+      "reversibility": null,
+      "angular_momentum_max": 1.7307666121356013e-08
+    }
+  },
+  "e04": {
+    "max_dev_inconsistent": 0.022805057755911573,
+    "max_dev_consistent": 0.0006737778352430279,
+    "artefact_factor": 33.8465538090696,
+    "r_min": 50.0,
+    "r_max": 176.18336144760863,
+    "softening": 5.0,
+    "max_energy_error": {
+      "leapfrog_h0.1": 0.0006737778352430266,
+      "leapfrog_h0.05": 0.0001683758388140757,
+      "yoshida4_h0.1": 9.588187444841181e-07,
+      "rk4_h0.1": 2.5378217213557104e-07
+    }
+  },
+  "e05": {
+    "symplectic_euler": 0.020300094662669684,
+    "leapfrog": 0.008348974139029476,
+    "rk4": 0.0024786854752723393,
+    "yoshida4": 0.0007526485512584708,
+    "yoshida6a": 1.6650831529204774e-05,
+    "dopri5": 5.616428404996505e-05,
+    "reference_check": 3.0716177332171294e-07
+  },
+  "e06": {
+    "rtol": 1e-12,
+    "delta0": 1e-08,
+    "reference_binary": "m=4 + m=5",
+    "dopri_steps": 41062,
+    "dopri_evals": 248257,
+    "dopri_rejected": 314,
+    "h_min": 1.3489249311766943e-08,
+    "h_max": 0.020704149669020986,
+    "r_min": 0.00041382668231395843,
+    "t_r_min": 15.829920265537607,
+    "dopri_energy_max": 1.7320063510844372e-08,
+    "lyapunov": 0.243282989115516,
+    "t_separation_1e-2": 45.8,
+    "fixed": {
+      "leapfrog": {
+        "dt": 0.0002819658660178766,
+        "energy_max": 1.0997201941805408
+      },
+      "yoshida4": {
+        "dt": 0.0008458975980536299,
+        "energy_max": 8.377636058689331
+      }
+    }
+  },
+  "e07": {
+    "Mercury": "Yoshida 6A, 1 d, 100 yr",
+    "Venus": "Yoshida 6A, 1 d, 100 yr",
+    "Earth": "Yoshida 6A, 1 d, 100 yr",
+    "Mars": "Yoshida 6A, 1 d, 100 yr",
+    "Jupiter": "leapfrog, 1 d, 1000 yr",
+    "Saturn": "leapfrog, 1 d, 1000 yr",
+    "Uranus": "leapfrog, 1 d, 1000 yr",
+    "Neptune": "leapfrog, 1 d, 1000 yr"
+  },
+  "e08": {
+    "machine": "Intel64 Family 6 Model 158 Stepping 13, GenuineIntel, Python 3.11.9, NumPy 2.3.1",
+    "speedup_n512": 215.27028994273314,
+    "speedup_n2": 0.6134030473307178,
+    "speedup_n128": 182.3840829836847,
+    "t_dense_n2048_ms": 358.6551999906078
+  },
+  "e09": {
+    "viewer_inner_solar_system": "viewer_inner_solar_system.png",
+    "viewer_circumbinary": "viewer_circumbinary.png"
+  }
+}

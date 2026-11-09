@@ -1,0 +1,7 @@
+integrator,label,force_evals,energy_max,angmom_max,error_final
+symplectic_euler,Symplectic Euler,63000,0.000977606,1.62093e-14,0.0203001
+leapfrog,Leapfrog (Verlet),63001,1.48589e-05,1.57652e-14,0.00834897
+rk4,Runge-Kutta 4,63000,4.28832e-06,1.00199e-08,0.00247869
+yoshida4,Yoshida 4,63001,3.52023e-08,1.14353e-14,0.000752649
+yoshida6a,Yoshida 6 (solution A),63001,7.05307e-09,2.55351e-14,1.66508e-05
+dopri5,Dormand-Prince 5(4),99907,1.00643e-07,1.65045e-10,5.61643e-05

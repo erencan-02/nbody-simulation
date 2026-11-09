@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Project emblem (stand-in for the official TU Darmstadt logo, see README). -->
+<svg xmlns="http://www.w3.org/2000/svg" width="208" height="83" viewBox="0 0 208 83">
+  <rect width="208" height="83" fill="#ffffff"/>
+  <g fill="none" stroke="#243572" stroke-width="2.2">
+    <ellipse cx="104" cy="41.5" rx="86" ry="22" transform="rotate(-12 104 41.5)"/>
+    <ellipse cx="104" cy="41.5" rx="58" ry="30" transform="rotate(28 104 41.5)" stroke-width="1.6"/>
+    <ellipse cx="104" cy="41.5" rx="34" ry="13" transform="rotate(-55 104 41.5)" stroke-width="1.2"/>
+  </g>
+  <circle cx="104" cy="41.5" r="7.5" fill="#243572"/>
+  <circle cx="20.5" cy="58.5" r="5" fill="#243572"/>
+  <circle cx="148.3" cy="12.6" r="4" fill="#243572"/>
+  <circle cx="118.6" cy="72.0" r="3.2" fill="#243572"/>
+  <circle cx="119.5" cy="12.5" r="2.6" fill="#243572"/>
+</svg>

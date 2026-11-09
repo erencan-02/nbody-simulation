@@ -1,0 +1,4 @@
+integrator,label,dt_days,force_evals,energy_max,energy_drift_per_yr,angmom_max,wall_time_s
+leapfrog,Leapfrog (Verlet),1,365251,2.90469e-06,-3.1853e-13,6.03095e-14,30.3928
+yoshida4,Yoshida 4,3,365251,2.79381e-06,-1.47898e-13,4.48415e-14,30.8473
+rk4,Runge-Kutta 4,4,365252,0.0109223,8.94496e-07,2.28066e-05,38.0377

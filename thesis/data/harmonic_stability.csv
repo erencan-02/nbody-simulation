@@ -1,0 +1,6 @@
+integrator,label,stability_limit
+euler,Explicit Euler,0.001
+symplectic_euler,Symplectic Euler,2.00204
+leapfrog,Leapfrog (Verlet),2.00204
+rk4,Runge-Kutta 4,2.82914
+yoshida4,Yoshida 4,1.57515

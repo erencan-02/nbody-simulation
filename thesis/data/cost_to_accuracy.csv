@@ -1,0 +1,10 @@
+integrator,label,force_evals
+euler,Explicit Euler,nan
+symplectic_euler,Symplectic Euler,nan
+heun,Heun (RK2),nan
+leapfrog,Leapfrog (Verlet),nan
+rk4,Runge-Kutta 4,8875
+yoshida4,Yoshida 4,12758.1
+yoshida6a,Yoshida 6 (solution A),5043.02
+yoshida6,Yoshida 6 (triple jump),10369.5
+dopri5,Dormand-Prince 5(4),1714.88

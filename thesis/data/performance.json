@@ -1,0 +1,7 @@
+{
+  "machine": "Intel64 Family 6 Model 158 Stepping 13, GenuineIntel, Python 3.11.9, NumPy 2.3.1",
+  "speedup_n512": 215.27028994273314,
+  "speedup_n2": 0.6134030473307178,
+  "speedup_n128": 182.3840829836847,
+  "t_dense_n2048_ms": 358.6551999906078
+}

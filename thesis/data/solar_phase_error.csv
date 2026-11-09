@@ -1,0 +1,5 @@
+planet,P_reference_yr,rel_period_error_leapfrog,rel_period_error_yoshida4,rel_period_error_rk4
+Mercury,0.240843,0.00350969,-0.00505797,0.838595
+Venus,0.615193,0.000264656,-4.64788e-05,-0.000377452
+Earth,1.00001,0.000102629,-6.79939e-06,-1.98493e-05
+Mars,1.88094,3.63329e-05,-5.40254e-07,-1.0687e-06

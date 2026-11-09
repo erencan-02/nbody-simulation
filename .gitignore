@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+
+# simulation output
+*.npz
+nbody_*.png
+
+# thesis: downloaded fonts (see scripts/fetch_fonts.py)
+thesis/assets/fonts/
+
+# editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
