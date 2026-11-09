@@ -26,7 +26,7 @@ implementation, evaluation, outlook)
 | **Visualisation** | real-time viewer with trajectory overlays: fading trails (past) and a forecast obtained by integrating a ghost copy of the system (future) |
 
 <p align="center">
-  <img src="thesis/figures/generated/viewer_inner_solar_system.png" width="48%">
+  <img src="docs/showcase.gif" width="48%" alt="Animated inner Solar System with trails and forecast overlay">
   <img src="thesis/figures/generated/viewer_circumbinary.png" width="48%">
 </p>
 
@@ -44,7 +44,8 @@ implementation, evaluation, outlook)
 ├── scenarios/              user-editable JSON scenarios (incl. those of the original project)
 ├── experiments/            evaluation experiments e01–e09 and run_all.py
 ├── tests/                  pytest suite
-├── scripts/fetch_fonts.py  downloads the fonts required by the thesis template
+├── scripts/                fetch_fonts.py (thesis fonts), make_readme_gif.py (animation below)
+├── docs/showcase.gif       README animation (leapfrog, 4 simulated days per frame)
 └── thesis/                 Typst sources of the thesis
     ├── main.typ            template configuration (dark-blue TU Darmstadt theme)
     ├── chapters/           introduction, physics, numerics, implementation, evaluation, ...
